@@ -4,7 +4,8 @@
   "description": "NK-VEC",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node_modules/webpack/bin/webpack.js --mode production --watch --progress --hide-modules",
+    "build": "node_modules/webpack/bin/webpack.js --mode production --progress --hide-modules"
   },
   "keywords": [
     "Javascript",
@@ -18,5 +19,10 @@
     "model"
   ],
   "author": "Trịnh Đỗ Duy Hưng",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
 }
