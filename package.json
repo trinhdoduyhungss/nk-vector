@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "node_modules/webpack/bin/webpack.js --mode production --watch --progress --hide-modules",
-    "build": "node_modules/webpack/bin/webpack.js --mode production --progress --hide-modules"
+    "build": "node_modules/webpack/bin/webpack.js --mode production --progress --hide-modules",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:trinhdoduyhungss/nk-vector.git"
   },
   "keywords": [
     "Javascript",
@@ -18,8 +23,12 @@
     "embedding",
     "model"
   ],
-  "author": "Trịnh Đỗ Duy Hưng",
+  "author": "Trịnh Đỗ Duy Hưng <trinhhungsss492@gmail.com>",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trinhdoduyhungss/nk-vector/issues"
+  },
+  "homepage": "https://github.com/trinhdoduyhungss/nk-vector#readme",
   "readme": "README.md",
   "devDependencies": {
     "uglifyjs-webpack-plugin": "^2.2.0",
