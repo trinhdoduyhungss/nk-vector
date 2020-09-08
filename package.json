@@ -1,6 +1,6 @@
 {
   "name": "nk-vector",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "NK-VEC",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
   ],
   "author": "Trịnh Đỗ Duy Hưng",
   "license": "ISC",
+  "readme": "README.md",
   "devDependencies": {
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.44.1",
