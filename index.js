@@ -10,7 +10,7 @@ module.exports.train = function (size_output, url_data_one_hot, url_data_window_
     let train = require('./Run_train')
     train.training(size_output, url_data_one_hot, url_data_window_words, url_save)
 }
-module.exports.build_vec_sentences = function (doc, url_vecs_of_words, url_save){
+module.exports.build_vec_sentences = function (doc, url_vecs_of_words, url_save) {
     let fs = require("fs");
     let data_vector = fs.readFileSync(url_vecs_of_words, 'utf8')
     let wordVecs = JSON.parse(data_vector);
@@ -118,54 +118,54 @@ module.exports.build_vec_sentences = function (doc, url_vecs_of_words, url_save)
     }
     if (Object.keys(return_doc_vec).length > 0) {
         return_doc_vec = JSON.stringify(return_doc_vec)
-        if(url_save.length > 0){
+        if (url_save.length > 0) {
             fs.writeFile(url_save, return_doc_vec, function (err) {
                 if (err) { console.log(err) }
                 else {
                     console.log('Saved vecs')
                 }
             })
-        }else{
+        } else {
             return return_doc_vec
         }
     }
 }
-module.exports.find_word = function(target, url_vecs_of_word, size_result){
+module.exports.find_word = function (target, url_vecs_of_word, size_result) {
     let search = require('./search_word_similarity')
     return search(target, url_vecs_of_word, size_result)
 }
-module.exports.knn = function(target, type_distance, data, k){
+module.exports.knn = function (target, type_distance, data, k) {
     let kdTree = require('./KD-tree')
     let points = []
-    for(let i in data){
+    for (let i in data) {
         let item = {}
-        for(let y in data[i]){
+        for (let y in data[i]) {
             item[y] = data[i][y]
         }
-        if(Object.keys(item).length > 0){
+        if (Object.keys(item).length > 0) {
             points.push(item)
         }
     }
     let search = {}
-    for(let i in target){
+    for (let i in target) {
         search[i] = target[i]
     }
-    if(points.length > 0 && Object.keys(search).length > 0){ 
+    if (points.length > 0 && Object.keys(search).length > 0) {
         let dimensions = Object.keys(points[0])
-        if(type_distance == "eculid"){
+        if (type_distance == "eculid") {
             function distance_eculid(a, b) {
                 let key = Object.keys(a)
                 let value = 0
-                for(let i in key){
+                for (let i in key) {
                     value += Math.pow(a[key[i]] - b[key[i]], 2)
                 }
                 return value
             }
             let tree_eculid = new kdTree.kdTree(points, distance_eculid, dimensions);
             let nearest = tree_eculid.nearest(search, k);
-            return nearest.sort()
+            return nearest.sort(function (a, b) { return a[1] - b[1] })
         }
-        if(type_distance == 'cosine'){
+        if (type_distance == 'cosine') {
             function L2_norm(a) {
                 let value = 0
                 for (let i in a) {
@@ -185,4 +185,94 @@ module.exports.knn = function(target, type_distance, data, k){
             return tree_cosin.nearest(search, k);
         }
     }
+}
+module.exports.VN_segmentation_tag = function (doc) {
+    let vntk = require('vntk');
+    let tokenizer = vntk.wordTokenizer();
+    return tokenizer.tag(doc);
+}
+module.exports.clear_sentence_vn = function(doc){
+    function process(text) {
+        text = text.replace(/[’“”%&!’#√.*+?,;^${}()_`'"|[\]\\//]/g, " ");
+        text = text.replace(/[0-9]/g, '');
+        text = text.replace(/(\r\n\t|\n|\r)/gm, " ");
+        text = text.replace(/[=]/g, " ");
+        text = text.replace(/[:]/g, " ");
+        text = text.replace(/[-]/g, " ");
+        text = text.replace(/[>]/g, " ");
+        text = text.replace(/[<]/g, " ");
+        text = text.replace(/[@]/g, " ");
+        text = text.replace(/\s+/g, ' ')
+        text = text.replace(/[0-9]/g, ' ');
+        text = text.toLocaleLowerCase()
+        text = text.trim()
+        text = text.trim()
+        return text
+    }
+    let vntk = require('vntk');
+    let fs = require('fs')
+    let tokenizer = vntk.wordTokenizer();
+    doc = process(doc)
+    let array_token =  tokenizer.tag(doc);
+    let file_stop_word = fs.readFileSync("stop_word_vn.txt").toString();
+    file_stop_word = file_stop_word.split("\r\n")
+    array_token = array_token.filter(function (value, index, arr) {
+        return file_stop_word.includes(process(value)) <= 0;
+    });
+    array_token = [...new Set(array_token)]
+    let new_text = ''
+    for (let i in array_token) {
+        if (array_token[i] != '' && array_token[i].length >= 2) {
+            new_text += array_token[i] + ' '
+        }
+    }
+    return new_text.trim()
+}
+module.exports.clear_sentence_en = function(doc){
+    let fs = require('fs')
+    function process(text) {
+        text = text.replace(/[’“”%&!’#√.*+?,;^${}()_`'"|[\]\\//]/g, " ");
+        text = text.replace(/[0-9]/g, '');
+        text = text.replace(/(\r\n\t|\n|\r)/gm, " ");
+        text = text.replace(/[=]/g, " ");
+        text = text.replace(/[:]/g, " ");
+        text = text.replace(/[-]/g, " ");
+        text = text.replace(/[>]/g, " ");
+        text = text.replace(/[<]/g, " ");
+        text = text.replace(/[@]/g, " ");
+        text = text.replace(/\s+/g, ' ')
+        text = text.replace(/[0-9]/g, ' ');
+        text = text.toLocaleLowerCase()
+        text = text.trim()
+        text = text.trim()
+        return text
+    }
+    let file_stop_word = fs.readFileSync("stop_word.txt").toString();
+    file_stop_word = file_stop_word.split("\r\n")
+    doc = process(doc)
+    function filter_stop_word(text) {
+        text = text.split(' ')
+        text = text.filter(function (value, index, arr) {
+            return file_stop_word.includes(process(value)) <= 0;
+        });
+        let new_text = ''
+        for (let i in text) {
+            if (text[i] != '' && text[i].length >= 2) {
+                new_text += text[i] + ' '
+            }
+        }
+        return new_text.trim()
+    }
+    return filter_stop_word(doc)
+}
+module.exports.remove_duplicate_words = function(doc){
+    doc = doc.split(' ')
+    doc = [...new Set(doc)]
+    let new_text = ''
+    for (let i in doc) {
+        if (doc[i] != '' && doc[i].length >= 2) {
+            new_text += doc[i] + ' '
+        }
+    }
+    return new_text.trim()
 }
