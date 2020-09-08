@@ -1,4 +1,4 @@
-let NKV = require('./index.js')
+let NKV = require('../index.js')
 let points = [
     [ 1,  2 ],
     [ 3,  4 ],

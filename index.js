@@ -1,13 +1,13 @@
 module.exports.Create_one_hot = function (file_url, url_save) {
-    let cre_oh = require('./Create_onehot')
+    let cre_oh = require('./src/Create_onehot')
     cre_oh.one_hot(file_url, url_save)
 }
 module.exports.Create_window_words = function (file_url, window_size, url_save) {
-    let cre_w = require('./Create_windows')
+    let cre_w = require('./src/Create_windows')
     cre_w.window(file_url, window_size, url_save)
 }
 module.exports.train = function (size_output, url_data_one_hot, url_data_window_words, url_save) {
-    let train = require('./Run_train')
+    let train = require('./src/Run_train')
     train.training(size_output, url_data_one_hot, url_data_window_words, url_save)
 }
 module.exports.build_vec_sentences = function (doc, url_vecs_of_words, url_save) {
@@ -131,11 +131,11 @@ module.exports.build_vec_sentences = function (doc, url_vecs_of_words, url_save)
     }
 }
 module.exports.find_word = function (target, url_vecs_of_word, size_result) {
-    let search = require('./search_word_similarity')
+    let search = require('./src/search_word_similarity')
     return search(target, url_vecs_of_word, size_result)
 }
 module.exports.knn = function (target, type_distance, data, k) {
-    let kdTree = require('./KD-tree')
+    let kdTree = require('./src/KD-tree')
     let points = []
     for (let i in data) {
         let item = {}
