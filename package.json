@@ -1,6 +1,6 @@
 {
   "name": "nk-vector",
-  "version": "1.0.6",
+  "version": "1.0.0",
   "description": "NK-VEC",
   "main": "index.js",
   "scripts": {
@@ -24,10 +24,15 @@
     "model"
   ],
   "author": "Trịnh Đỗ Duy Hưng <trinhhungsss492@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/trinhdoduyhungss/nk-vector/issues"
   },
+  "private": false,
+  "engines": {
+    "node": ">=10.16.0"
+  },
+  "engineStrict": true,
   "homepage": "https://github.com/trinhdoduyhungss/nk-vector#readme",
   "readme": "README.md",
   "devDependencies": {
