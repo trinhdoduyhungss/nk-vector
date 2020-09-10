@@ -48,4 +48,5 @@ module.exports.search_word_similarity = function(target, url_vecs_of_word, size_
             console.log('Some words similarity "',text,'": ',return_sim)
         }
     }
+    
 }

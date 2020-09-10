@@ -198,4 +198,5 @@ module.exports = function (epoch, x, y, debug) {
         }
     }
     return train(epoch, x, y)
+    
 }

@@ -82,5 +82,4 @@ module.exports.one_hot = function (file_url, url_save){
         }
     }
     run(file_NL)
-
 }

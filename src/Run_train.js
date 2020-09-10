@@ -3,7 +3,7 @@ module.exports.training = function (size_output, url_data_one_hot, url_data_wind
     let NKV = require('./NK_VEC.js')
     let data_one_hot = fs.readFileSync(url_data_one_hot, 'utf8')
     data_one_hot = JSON.parse(data_one_hot);
-    let data_windows_words = fs.readFileSync(url_data_window_words).toString();
+    let data_windows_words = fs.readFileSync(url_data_window_words, 'utf8').toString();
     data_windows_words = JSON.parse(data_windows_words)
     function rotating_array(W) {
         let result_W = []

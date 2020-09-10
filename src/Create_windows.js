@@ -4,7 +4,6 @@ module.exports.window = function (file_url, window_size, url_save) {
     file_NL = file_NL.split("\r\n")
     let file_stop_word = fs.readFileSync("stop_word.txt").toString();
     file_stop_word = file_stop_word.split("\r\n")
-
     function process(text) {
         text = text.replace(/[’“”%&!’#√.*+?,;^${}()_`'"|[\]\\//]/g, " ");
         text = text.replace(/[0-9]/g, '');
@@ -23,7 +22,6 @@ module.exports.window = function (file_url, window_size, url_save) {
         text = text.trim()
         return text
     }
-
     function catch_windows(text, window_size) {
         if (window_size % 2 == 0) {
             return 'Error! The window size must be an uneven number'
@@ -50,7 +48,6 @@ module.exports.window = function (file_url, window_size, url_save) {
             }
         }
     }
-
     function readyData(data, window_size) {
         let data_return = []
         let data_clean = ''
@@ -91,7 +88,6 @@ module.exports.window = function (file_url, window_size, url_save) {
             }
         }
     }
-
     if (window_size % 2 == 0) {
         console.log('\x1b[41m','Error! The window size must be an uneven number','\x1b[0m')
     } else {

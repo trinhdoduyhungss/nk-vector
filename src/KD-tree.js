@@ -389,11 +389,9 @@
       }
       throw new Error("Node not found.");
     },
-
     size: function() {
       return this.content.length;
     },
-
     bubbleUp: function(n) {
       // Fetch the element that has to be moved.
       var element = this.content[n];
@@ -415,7 +413,6 @@
         }
       }
     },
-
     sinkDown: function(n) {
       // Look up the target element and its score.
       var length = this.content.length,
@@ -459,7 +456,6 @@
       }
     }
   };
-
   exports.kdTree = kdTree;
   exports.BinaryHeap = BinaryHeap;
 }));
