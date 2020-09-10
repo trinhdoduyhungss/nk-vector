@@ -64,3 +64,6 @@ console.log(clear_sentence);
 # Lời cảm ơn
 Cảm ơn mọi người đã sử dụng NK-VECTOR, tôi sẽ cập nhật thường xuyên các thuật toán mới!<br>
 Cảm ơn VUNB đã phát triển gói VNTK thần thánh
+# Sản phẩm đã áp dụng
+> Code Search: https://code-search-vni.herokuapp.com/ <br>
+> Trước khi GPT-3 publish key cho mọi người thì mình vẫn có thể tạo ra một nơi để search code Python theo ngữ nghĩa na ná các example của GPT-3 nhé
