@@ -228,7 +228,6 @@ module.exports.clear_sentence_vn = function(document){
     array_token = array_token.filter(function (value, index, arr) {
         return file_stop_word.includes(process(value)) <= 0;
     });
-    array_token = [...new Set(array_token)]
     let new_text = ''
     for (let i in array_token) {
         if (array_token[i] != '' && array_token[i].length >= 2) {
