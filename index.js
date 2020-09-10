@@ -150,6 +150,14 @@ module.exports.knn = function (target, type_distance, data, k) {
     for (let i in target) {
         search[i] = target[i]
     }
+    function format_result(nearest){
+        let format_nearest = []
+        for (let item in nearest) {
+            let array_item = Object.values(nearest[item][0])
+            format_nearest.push([array_item, nearest[item][1]])
+        }
+        return format_nearest.sort(function (a, b) { return a[1] - b[1] })
+    }
     if (points.length > 0 && Object.keys(search).length > 0) {
         let dimensions = Object.keys(points[0])
         if (type_distance == "eculid") {
@@ -163,7 +171,7 @@ module.exports.knn = function (target, type_distance, data, k) {
             }
             let tree_eculid = new kdTree.kdTree(points, distance_eculid, dimensions);
             let nearest = tree_eculid.nearest(search, k);
-            return nearest.sort(function (a, b) { return a[1] - b[1] })
+            return format_result(nearest)
         }
         if (type_distance == 'cosine') {
             function L2_norm(a) {
@@ -182,7 +190,8 @@ module.exports.knn = function (target, type_distance, data, k) {
                 return Math.abs(value_dot) / (L2_norm(a) * L2_norm(b))
             }
             let tree_cosin = new kdTree.kdTree(points, cosine_similarity, dimensions);
-            return tree_cosin.nearest(search, k);
+            tree_cosin = tree_cosin.nearest(search, k);
+            return format_result(tree_cosin).reverse()
         }
     }
 }
