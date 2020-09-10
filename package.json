@@ -33,11 +33,7 @@
   "engineStrict": true,
   "homepage": "https://github.com/trinhdoduyhungss/nk-vector#readme",
   "readme": "README.md",
-  "devDependencies": {
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
-  },
+  "devDependencies": {},
   "dependencies": {
     "vntk": "^1.4.4"
   }
