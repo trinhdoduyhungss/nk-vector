@@ -4,8 +4,6 @@
   "description": "NK-VEC",
   "main": "index.js",
   "scripts": {
-    "dev": "node_modules/webpack/bin/webpack.js --mode production --watch --progress --hide-modules",
-    "build": "node_modules/webpack/bin/webpack.js --mode production --progress --hide-modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -42,5 +40,6 @@
   },
   "dependencies": {
     "vntk": "^1.4.4"
-  }
+  },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
 }

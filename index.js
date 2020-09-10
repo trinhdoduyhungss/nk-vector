@@ -10,7 +10,7 @@ module.exports.train = function (size_output, url_data_one_hot, url_data_window_
     let train = require('./src/Run_train')
     train.training(size_output, url_data_one_hot, url_data_window_words, url_save)
 }
-module.exports.build_vec_sentences = function (doc, url_vecs_of_words, url_save) {
+module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_save) {
     let fs = require("fs");
     let data_vector = fs.readFileSync(url_vecs_of_words, 'utf8')
     let wordVecs = JSON.parse(data_vector);
@@ -94,39 +94,39 @@ module.exports.build_vec_sentences = function (doc, url_vecs_of_words, url_save)
         text = text.trim();
         return text
     }
-    function doc2vec(doc) {
-        doc = process(doc).trim()
-        doc = filter_stop_word(doc)
-        doc = doc.split(' ')
+    function document2vec(document) {
+        document = process(document).trim()
+        document = filter_stop_word(document)
+        document = document.split(' ')
         let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
-        let array_dup = findDuplicates(doc)
+        let array_dup = findDuplicates(document)
         let array_sentence = []
-        for (let i in doc) {
-            if (array_dup.indexOf(doc[i]) == -1 && doc[i].length > 3 && wordVecs[doc[i]] != undefined) {
-                array_sentence.push(wordVecs[doc[i]])
+        for (let i in document) {
+            if (array_dup.indexOf(document[i]) == -1 && document[i].length > 3 && wordVecs[document[i]] != undefined) {
+                array_sentence.push(wordVecs[document[i]])
             }
         }
         return average(array_sentence, array_sentence.length, 'mashup')
     }
-    doc = doc.split('\n')
-    let return_doc_vec = {}
-    for (let sentence in doc) {
-        let sen_vec = doc2vec(doc[sentence])
+    document = document.split('\n')
+    let return_document_vec = {}
+    for (let sentence in document) {
+        let sen_vec = document2vec(document[sentence])
         if (sen_vec.length > 0) {
-            return_doc_vec[doc[sentence]] = sen_vec
+            return_document_vec[document[sentence]] = sen_vec
         }
     }
-    if (Object.keys(return_doc_vec).length > 0) {
-        return_doc_vec = JSON.stringify(return_doc_vec)
+    if (Object.keys(return_document_vec).length > 0) {
+        return_document_vec = JSON.stringify(return_document_vec)
         if (url_save.length > 0) {
-            fs.writeFile(url_save, return_doc_vec, function (err) {
+            fs.writeFile(url_save, return_document_vec, function (err) {
                 if (err) { console.log(err) }
                 else {
                     console.log('Saved vecs')
                 }
             })
         } else {
-            return return_doc_vec
+            return return_document_vec
         }
     }
 }
@@ -186,12 +186,12 @@ module.exports.knn = function (target, type_distance, data, k) {
         }
     }
 }
-module.exports.VN_segmentation_tag = function (doc) {
+module.exports.VN_segmentation_tag = function (document) {
     let vntk = require('vntk');
     let tokenizer = vntk.wordTokenizer();
-    return tokenizer.tag(doc);
+    return tokenizer.tag(document);
 }
-module.exports.clear_sentence_vn = function(doc){
+module.exports.clear_sentence_vn = function(document){
     function process(text) {
         text = text.replace(/[’“”%&!’#√.*+?,;^${}()_`'"|[\]\\//]/g, " ");
         text = text.replace(/[0-9]/g, '');
@@ -212,8 +212,8 @@ module.exports.clear_sentence_vn = function(doc){
     let vntk = require('vntk');
     let fs = require('fs')
     let tokenizer = vntk.wordTokenizer();
-    doc = process(doc)
-    let array_token =  tokenizer.tag(doc);
+    document = process(document)
+    let array_token =  tokenizer.tag(document);
     let file_stop_word = fs.readFileSync("stop_word_vn.txt").toString();
     file_stop_word = file_stop_word.split("\r\n")
     array_token = array_token.filter(function (value, index, arr) {
@@ -228,7 +228,7 @@ module.exports.clear_sentence_vn = function(doc){
     }
     return new_text.trim()
 }
-module.exports.clear_sentence_en = function(doc){
+module.exports.clear_sentence_en = function(document){
     let fs = require('fs')
     function process(text) {
         text = text.replace(/[’“”%&!’#√.*+?,;^${}()_`'"|[\]\\//]/g, " ");
@@ -249,7 +249,7 @@ module.exports.clear_sentence_en = function(doc){
     }
     let file_stop_word = fs.readFileSync("stop_word.txt").toString();
     file_stop_word = file_stop_word.split("\r\n")
-    doc = process(doc)
+    document = process(document)
     function filter_stop_word(text) {
         text = text.split(' ')
         text = text.filter(function (value, index, arr) {
@@ -263,15 +263,15 @@ module.exports.clear_sentence_en = function(doc){
         }
         return new_text.trim()
     }
-    return filter_stop_word(doc)
+    return filter_stop_word(document)
 }
-module.exports.remove_duplicate_words = function(doc){
-    doc = doc.split(' ')
-    doc = [...new Set(doc)]
+module.exports.remove_duplicate_words = function(document){
+    document = document.split(' ')
+    document = [...new Set(document)]
     let new_text = ''
-    for (let i in doc) {
-        if (doc[i] != '' && doc[i].length >= 2) {
-            new_text += doc[i] + ' '
+    for (let i in document) {
+        if (document[i] != '' && document[i].length >= 2) {
+            new_text += document[i] + ' '
         }
     }
     return new_text.trim()
