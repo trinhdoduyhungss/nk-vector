@@ -140,7 +140,7 @@ module.exports.training = function (size_output, url_data_one_hot, url_data_wind
             return data_result
         }
     }
-    if (size_output > data_one_hot[data_windows_words[0]].length) {
+    if (size_output > data_one_hot[data_windows_words[0][0]].length) {
         console.log('\x1b[41m','Error! The size output is so large which must smaller size onehot input','\x1b[0m')
     } else {
         let data = run(20)
