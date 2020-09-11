@@ -1,9 +1,9 @@
 module.exports.chatbot = function (text) {
     let fs = require('fs');
     let NKV = require('../index.js')
-    let data_check_label = fs.readFileSync(__dirname.replace(/[[\]\\//]/g,`/`).replace(/node_modules/g,"").replace(/nk-vector/g,"")+"/node_modules/nk-vector/src/data_check_labels.json", 'utf8')
+    let data_check_label = fs.readFileSync("./src/data_check_labels.json", 'utf8')
     data_check_label = JSON.parse(data_check_label);
-    let data_points = fs.readFileSync(__dirname.replace(/[[\]\\//]/g,`/`).replace(/node_modules/g,"").replace(/nk-vector/g,"")+"/node_modules/nk-vector/src/data_for_knn.txt", 'utf8')
+    let data_points = fs.readFileSync("./src/data_for_knn.txt", 'utf8')
     data_points = JSON.parse(data_points);
     function process_sentence(document) {
         let sentence = NKV.VN_segmentation_tag(document.toLocaleLowerCase())
@@ -17,7 +17,7 @@ module.exports.chatbot = function (text) {
     }
     function find_label(document) {
         let processed = process_sentence(document)
-        let vec_search = NKV.build_vec_sentences(processed, __dirname.replace(/[[\]\\//]/g,`/`).replace(/node_modules/g,"").replace(/nk-vector/g,"")+"/node_modules/nk-vector/src/data_vec.json", '')
+        let vec_search = NKV.build_vec_sentences(processed, "./src/data_vec.json", '')
         if (vec_search != undefined && Object.keys(vec_search).length > 0) {
             let arrays_result_search = NKV.knn(vec_search[processed], 'eculid', data_points, 5)
             let labels_search = {}
