@@ -4,7 +4,7 @@
 ## Lý do ra đời
 > Về cơ bản, NK-VEC là một Neural Network Embeddings có ý tưởng từ Word2Vec và có nhiệm vụ giống tất cả các mô hình nhúng từ hiện tại, nhưng nó có cấu tạo đơn giản hơn rất nhiều. Thông qua thư viện NK-VECTOR, bạn có thể sử dụng mô hình NK-VEC để build bộ vector theo dữ liệu riêng của bạn một cách đơn giản nhất. Ngoài ra NK-VECTOR còn cung cấp cho bạn một số tính năng, thuật toán hữu ích dùng để giải quyết các bài toán NLP.
 ## Về tên gọi
-> Tôi tạo ra nó trong lúc nghiên cứu dự án lớn tại phòng tin học của trường THCS-THPT Nguyễn Khuyến, nên NK là chữ viết tắt của tên trường, đây dấu ấn tôi muốn lưu lại và nó xứng đáng được thế.
+> Tôi tạo ra nó trong lúc nghiên cứu dự án lớn tại phòng tin học của trường THCS-THPT Nguyễn Khuyến (Đà Nẵng), nên NK là chữ viết tắt của tên trường, đây dấu ấn tôi muốn lưu lại và nó xứng đáng được thế.
 # Các tính năng hiện tại
 * Tạo one hot vector
 * Tạo windows words
@@ -19,8 +19,8 @@
 |Hàm|Tham số|Ví dụ|Lưu ý|
 |---|-------|-----|-----|
 |Create_one_hot|<file_url, url_save>|"E:/project/data.txt", "E:/project/onehot.json"|Trong này sẽ mặc định lọc stopword tiếng Anh và các ký tự đặc biệt|
-|Create_window_words|<file_url, window_size, url_save>|"E:/project/data.txt", 5, "E:/project/window.txt"|Trong này sẽ mặc định lọc stopword tiếng Anh và các ký tự đặc biệt|
-|train|<size_output, url_data_one_hot, url_data_window_words, url_save>|512, "E:/project/onehot.json", "E:/project/window.txt", "E:/project/data_vector.json"|Số chiều vector đầu ra phải nhỏ hơn số chiều đầu onehot vector đầu vào|
+|Create_window_words|<file_url, window_size, url_save>|"E:/project/data.txt", 5, "E:/project/window.txt"|Trong này sẽ mặc định lọc stopword tiếng Anh và các ký tự đặc biệt. window_size phải là số lẻ|
+|train|<size_output, url_data_one_hot, url_data_window_words, url_save>|512, "E:/project/onehot.json", "E:/project/window.txt", "E:/project/data_vector.json"|size_output là số chiều vector đầu ra và nó phải nhỏ hơn số chiều đầu onehot vector đầu vào|
 |build_vec_sentences|<"doc", url_vecs_of_words, url_save>|"Xin chào tất cả mọi người", "E:/project/data_vector.json", ""|Nếu url_save có độ dài bằng 0 thì mặc định trả về bộ vector mà không lưu, nếu lưu thì hãy để định dạng json - Vd: "E:/project/data_sentence_vector.json"|
 |find_word|<"target", url_vecs_of_word, size_result>|"king","E:/project/data_vector.json", 15| size_result tương ứng với số lượng từ có độ tương tự từ cao nhất đến thấp được trả về"|
 |knn|<"target", type_distance, data, k>|[ 7, 8 ], 'eculid', points, 4|Xem ví dụ sử dụng hàm knn bên dưới|
