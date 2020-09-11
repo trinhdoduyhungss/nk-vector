@@ -54,6 +54,22 @@ console.log(nearest);
 Giải thích mảng trả về: [<vector trong tập dữ liệu>, <khoảng cách từ vector đầu vào tới vector này>]
 */
 ```
+Ví dụ: Sử dụng hàm build_vec_sentences
+```javascript
+let NKV = require('nk-vector')
+let sentence = NKV.VN_segmentation_tag(NKV.clear_sentence_vn('cân bằng phương trình hóa học'))
+let full_sentence = ''
+for(let word in sentence){
+    full_sentence += sentence[word].replace(' ','_') + ' '
+}
+if(full_sentence.length > 0){
+    console.log(full_sentence)
+    console.log(NKV.build_vec_sentences(full_sentence.trim(), 'E:/<name_project>/data_vec.json', ''))
+}
+/*Result: 
+{"cân_bằng phương_trình hóa học":[0.002338010428122218,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.00111962700489077,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.00111962700489077,0.0009866701202071657,0.00111962700489077,0,0.00111962700489077,0,0,0.0009866701202071657,0,0.0010865777210490053,0,0.0010865777210490053,0,0,0,0,0,0.0009866701202071657,0,0,0,0,0,0,0.0010865777210490053,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0010865777210490053,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+*/
+```
 Ví dụ: Sử dụng hàm clear_sentence_vn
 ```javascript
 let  NKV = require('nk-vector')
