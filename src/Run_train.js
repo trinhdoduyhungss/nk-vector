@@ -113,7 +113,7 @@ module.exports.training = function (size_output, url_data_one_hot, url_data_wind
                     }
                 }
                 if (training_data != undefined && focus_word != undefined && training_data.length > 0 && focus_word.length > 0) {
-                    let vector = NKV(epoch, training_data, focus_word, 0.1, true)
+                    let vector = NKV(epoch, training_data, focus_word, 0.1, false)
                     if (vector.length > 0) {
                         if (data_result[text_focus_word] == undefined) {
                             data_result[text_focus_word] = clear(vector)
