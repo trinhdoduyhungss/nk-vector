@@ -137,7 +137,7 @@ module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_
         }
     }
     catch(e){
-        console.log('\x1b[41m','Lỗi! Lỗi đường dẫn tệp, vui lòng định đường dẫn lại. Nếu bạn đang gọi hàm này tại một folder cùng cấp node_modules thì vui lòng thêm một dấu chấm trước ./ để xử dụng, xử lý tương tự với trường hợp bạn gọi trong folder lồng nhau khác!','\x1b[0m')
+        console.log('\x1b[41m','Lỗi! Lỗi đường dẫn tệp, vui lòng định đường dẫn lại!','\x1b[0m')
     }
 }
 module.exports.find_word = function (target, url_vecs_of_word, size_result) {
