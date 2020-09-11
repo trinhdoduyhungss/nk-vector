@@ -5,7 +5,7 @@ module.exports.window = function (file_url, window_size, url_save) {
     let file_stop_word = fs.readFileSync("stop_word.txt").toString();
     file_stop_word = file_stop_word.split("\r\n")
     function process(text) {
-        text = text.replace(/[’“”%&!’#√.*+?,;^${}()_`'"|[\]\\//]/g, " ");
+        text = text.replace(/[’“”%&!’#√.*+?,;^${}()`'"|[\]\\//]/g, " ");
         text = text.replace(/[0-9]/g, '');
         text = text.replace(/(\r\n\t|\n|\r)/gm, " ");
         text = text.replace(/[=]/g, " ");

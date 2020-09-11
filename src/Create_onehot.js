@@ -18,7 +18,7 @@ module.exports.one_hot = function (file_url, url_save){
         return new_text.trim()
     }
     function process(text) {
-        text = text.replace(/[’“”%&!’#√.*+?,;^${}()_`'"|[\]\\//]/g, " ");
+        text = text.replace(/[’“”%&!’#√.*+?,;^${}()`'"|[\]\\//]/g, " ");
         text = text.replace(/[0-9]/g, '');
         text = text.replace(/(\r\n\t|\n|\r)/gm, " ");
         text = text.replace(/[=]/g, " ");
