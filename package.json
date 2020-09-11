@@ -1,6 +1,6 @@
 {
   "name": "nk-vector",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "NK-VEC",
   "main": "index.js",
   "scripts": {
