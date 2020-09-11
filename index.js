@@ -14,7 +14,7 @@ module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_
     let fs = require("fs");
     let data_vector = fs.readFileSync(url_vecs_of_words, 'utf8')
     let wordVecs = JSON.parse(data_vector);
-    let file_stop_word = fs.readFileSync("stop_word.txt").toString();
+    let file_stop_word = fs.readFileSync("./node_modules/nk-vector/src/stop_word.txt").toString();
     file_stop_word = file_stop_word.split("\r\n")
     function mashup(matrix) {
         let result = matrix[0]
@@ -223,7 +223,7 @@ module.exports.clear_sentence_vn = function(document){
     let tokenizer = vntk.wordTokenizer();
     document = process(document)
     let array_token =  tokenizer.tag(document);
-    let file_stop_word = fs.readFileSync("stop_word_vn.txt").toString();
+    let file_stop_word = fs.readFileSync("./node_modules/nk-vector/src/stop_word_vn.txt").toString();
     file_stop_word = file_stop_word.split("\r\n")
     array_token = array_token.filter(function (value, index, arr) {
         return file_stop_word.includes(process(value)) <= 0;
@@ -255,7 +255,7 @@ module.exports.clear_sentence_en = function(document){
         text = text.trim()
         return text
     }
-    let file_stop_word = fs.readFileSync("stop_word.txt").toString();
+    let file_stop_word = fs.readFileSync("./node_modules/nk-vector/src/stop_word.txt").toString();
     file_stop_word = file_stop_word.split("\r\n")
     document = process(document)
     function filter_stop_word(text) {

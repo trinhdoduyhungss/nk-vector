@@ -2,7 +2,7 @@ module.exports.one_hot = function (file_url, url_save){
     let fs = require('fs');
     let file_NL = fs.readFileSync(file_url).toString();
     file_NL = file_NL.split("\r\n")
-    let file_stop_word = fs.readFileSync("stop_word.txt").toString();
+    let file_stop_word = fs.readFileSync("./node_modules/nk-vector/src/stop_word.txt").toString();
     file_stop_word = file_stop_word.split("\r\n")
     function filter_stop_word(text) {
         text = text.split(' ')
