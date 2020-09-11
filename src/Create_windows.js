@@ -89,7 +89,7 @@ module.exports.window = function (file_url, window_size, url_save) {
         }
     }
     if (window_size % 2 == 0) {
-        console.log('\x1b[41m','Error! The window size must be an uneven number','\x1b[0m')
+        console.log('\x1b[41m','Lỗi! Kích thước window phải là số lẻ','\x1b[0m')
     } else {
         let data_Save = readyData(file_NL, window_size)
         fs.writeFile(url_save, JSON.stringify(data_Save), 'utf8', function (err) {

@@ -112,8 +112,13 @@ module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_
     let return_document_vec = {}
     for (let sentence in document) {
         let sen_vec = document2vec(document[sentence])
-        if (sen_vec.length > 0) {
-            return_document_vec[document[sentence]] = sen_vec
+        if(sen_vec != undefined){
+            if (sen_vec.length > 0) {
+                return_document_vec[document[sentence]] = sen_vec
+            }
+        }
+        else{
+            console.log('\x1b[33m','Thông báo! Không thể chuyển câu này sang vector, rất có thể nó đã bị bộ lọc stopword và bộ lọc ký tự đặc biệt đã chặn nên các từ vựng trong câu này không xuất hiện ở bộ data vector ','\x1b[0m')
         }
     }
     if (Object.keys(return_document_vec).length > 0) {
