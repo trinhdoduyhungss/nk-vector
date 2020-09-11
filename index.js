@@ -193,9 +193,10 @@ module.exports.knn = function (target, type_distance, data, k) {
                 return sqrt_value
             }
             function cosine_similarity(a, b) {
+                let key = Object.keys(a)
                 let value_dot = 0
-                for (let i in a) {
-                    value_dot += a[i] * b[i]
+                for (let i in key) {
+                    value_dot += a[key[i]] * b[key[i]]
                 }
                 return Math.abs(value_dot) / (L2_norm(a) * L2_norm(b))
             }
@@ -293,4 +294,8 @@ module.exports.remove_duplicate_words = function(document){
         }
     }
     return new_text.trim()
+}
+module.exports.fast_build_chatbot = function(text){
+    let chat = require('./src/Simplechatbot')
+    return chat.chatbot(text)
 }
