@@ -35,6 +35,11 @@ module.exports.chatbot = function (text) {
             }
         }
     }
-    return find_label(text)
+    let label = find_label(text)
+    if(label != undefined){
+        return label
+    }else{
+        return "unknown"
+    }
     // console.log(NKV.build_vec_sentences(process_sentence('cân bằng phương trình hóa học'), 'E:/Project chatbot NLP NK/data_vec.json', ''))
 }
