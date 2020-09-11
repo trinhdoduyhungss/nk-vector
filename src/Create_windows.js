@@ -2,7 +2,7 @@ module.exports.window = function (file_url, window_size, url_save) {
     let fs = require("fs");
     let file_NL = fs.readFileSync(file_url).toString();
     file_NL = file_NL.split("\r\n")
-    let file_stop_word = fs.readFileSync("./node_modules/nk-vector/src/stop_word.txt").toString();
+    let file_stop_word = fs.readFileSync(__dirname.replace(/[[\]\\//]/g,`/`).replace(/node_modules/g,"").replace(/nk-vector/g,"")+"/node_modules/nk-vector/src/stop_word.txt").toString();
     file_stop_word = file_stop_word.split("\r\n")
     function process(text) {
         text = text.replace(/[’“”%&!’#√.*+?,;^${}()`'"|[\]\\//]/g, " ");
