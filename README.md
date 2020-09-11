@@ -28,6 +28,7 @@
 |clear_sentence_vn|<"document">|"Chào mừng bạn đến với tôi"|Tại đây câu tiếng Việt của bạn sẽ được lọc từ stopword tiếng Việt cho đến các ký tự đặc biệt|
 |clear_sentence_en|<"document">|"Chào mừng bạn đến với tôi"|Tại đây câu tiếng Anh của bạn sẽ được lọc từ stopword tiếng Anh cho đến các ký tự đặc biệt|
 |remove_duplicate_words|<"document">|"Chào chào mừng bạn đến với tôi"|Tại đây sẽ xóa các từ bị trùng lặp trong câu và nó dùng cho cả tiếng Anh và Việt|
+|fast_build_chatbot|<"text">|"Thời tiết hôm nay thế nào vậy"| Tại đây bot sẽ trả về một trong các nhãn: chemistry, general_asking, math, good_bye, hello, introduction, thanks, ask_weather|
 # Cài đặt
 > 1. Install [Node.js](http://nodejs.org/)
 > 2. Run: npm i nk-vector

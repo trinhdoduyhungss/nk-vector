@@ -35,6 +35,6 @@ module.exports.chatbot = function (text) {
             }
         }
     }
-    return find_label('cân bằng phương trình hóa học')
+    return find_label(text)
     // console.log(NKV.build_vec_sentences(process_sentence('cân bằng phương trình hóa học'), 'E:/Project chatbot NLP NK/data_vec.json', ''))
 }
