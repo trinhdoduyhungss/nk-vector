@@ -74,7 +74,7 @@ module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_
         return new_text.trim()
     }
     function process(text) {
-        text = text.replace(/[’“”%&!’#√.*+?,;^${}()_`'"|[\]\\//]/g, " ");
+        text = text.replace(/[’“”%&!’#√.*+?,;^${}()`'"|[\]\\//]/g, " ");
         text = text.replace(/[0-9]/g, '');
         text = text.replace(/(\r\n\t|\n|\r)/gm, " ");
         text = text.replace(/[=]/g, " ");
