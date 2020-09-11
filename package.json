@@ -1,6 +1,6 @@
 {
   "name": "nk-vector",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "NK-VEC",
   "main": "index.js",
   "scripts": {
@@ -37,5 +37,7 @@
   "dependencies": {
     "vntk": "^1.4.4"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.org/" }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.org/"
+  }
 }
