@@ -126,7 +126,7 @@ module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_
                 }
             })
         } else {
-            return return_document_vec
+            return JSON.parse(return_document_vec)
         }
     }
 }
