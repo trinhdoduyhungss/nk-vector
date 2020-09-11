@@ -77,11 +77,21 @@ let clear_sentence = NKV.clear_sentence_vn("Chào mừng các bạn lên trên t
 console.log(clear_sentence);
 //Result: chào mừng trời trời
 ```
+# Màu thông báo trong terminal
+> <span style="color:red">Màu đỏ</span> : Lỗi không thể chạy tiếp được </br>
+>
+> <span style="color:yellow">Màu vàng</span> : Đây chỉ là thông báo bình thường, vẫn chạy tiếp được
 # Một số lỗi bạn có thể gặp
 ## Lỗi không tìm thấy file stop word của cả bản Việt và Anh
-> Nếu gặp lỗi không tìm thấy file stop word thì hãy tìm vào dòng lỗi theo đường dẫn trong terminal và sửa lại thành :<br>
+> Nếu gặp lỗi không tìm thấy file stop word thì hãy tìm vào dòng lỗi theo đường dẫn trong terminal và sửa lại thành :</br>
 > 1. ./node_modules/nk-vector/src/stop_word.txt : Cho function clear_sentence_en
-> 2. ./node_modules/nk-vector/src/stop_word_vn.txt: Cho function clear_sentence_vn
+> 2. ./node_modules/nk-vector/src/stop_word_vn.txt: Cho function clear_sentence_vn</br>
+>
+> Lỗi này được thông báo cho người dùng với mức màu đỏ
+## Lỗi không build được vector cho câu
+> Lỗi này xảy ra khi các từ vựng, ký tự cấu tạo nên câu nằm trong bộ lọc stopword và ký tự đặc biệt loại bỏ trong quá trình training nên dẫn đến không có vector của các từ vựng này, dẫn đến câu nạp vào sẽ bị rỗng và không build được câu.</br>
+>
+> Lỗi này được thông báo cho người dùng với mức màu vàng
 # Lời cảm ơn
 Cảm ơn mọi người đã sử dụng NK-VECTOR, tôi sẽ cập nhật thường xuyên các thuật toán mới!<br>
 Cảm ơn VUNB đã phát triển gói VNTK thần thánh
