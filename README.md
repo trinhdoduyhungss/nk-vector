@@ -61,6 +61,11 @@ let clear_sentence = NKV.clear_sentence_vn("Chào mừng các bạn lên trên t
 console.log(clear_sentence);
 //Result: chào mừng trời trời
 ```
+# Một số lỗi bạn có thể gặp
+## Lỗi không tìm thấy file stop word của cả bản Việt và Anh
+> Nếu gặp lỗi không tìm thấy file stop word thì hãy tìm vào dòng lỗi theo đường dẫn trong terminal và sửa lại thành :<br>
+> 1. ./node_modules/nk-vector/src/stop_word.txt : Cho function clear_sentence_en
+> 2. ./node_modules/nk-vector/src/stop_word_vn.txt: Cho function clear_sentence_vn
 # Lời cảm ơn
 Cảm ơn mọi người đã sử dụng NK-VECTOR, tôi sẽ cập nhật thường xuyên các thuật toán mới!<br>
 Cảm ơn VUNB đã phát triển gói VNTK thần thánh
