@@ -14,125 +14,130 @@ module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_
     let fs = require("fs");
     let data_vector = fs.readFileSync(url_vecs_of_words, 'utf8')
     let wordVecs = JSON.parse(data_vector);
-    let file_stop_word = fs.readFileSync("./node_modules/nk-vector/src/stop_word.txt").toString();
-    file_stop_word = file_stop_word.split("\r\n")
-    function mashup(matrix) {
-        let result = matrix[0]
-        for (let i = 1; i < matrix.length; i++) {
-            for (let j in matrix[i]) {
-                result[j] += matrix[i][j]
-            }
-        }
-        return result
-    }
-    function average(matrix, size, type) {
-        if (type == "mashup") {
-            let matrix_mashup = mashup(matrix)
-            let result = []
-            for (let i in matrix_mashup) {
-                result.push(matrix_mashup[i] / size)
-            }
-            if (result.length != 0) {
-                return result
-            }
-        } else if (type == "nonmashup") {
-            let result = []
-            for (let i in matrix) {
-                let line = []
+    try{
+        let file_stop_word = fs.readFileSync("./node_modules/nk-vector/src/stop_word.txt").toString();
+        file_stop_word = file_stop_word.split("\r\n")
+        function mashup(matrix) {
+            let result = matrix[0]
+            for (let i = 1; i < matrix.length; i++) {
                 for (let j in matrix[i]) {
-                    line.push(matrix[i][j] / size)
-                }
-                if (line.length > 0 && line.length == matrix[i].length) {
-                    result.push(line)
+                    result[j] += matrix[i][j]
                 }
             }
-            if (result.length != 0) {
-                return result
-            }
+            return result
         }
-        else {
-            let result = []
-            for (let i in matrix[0]) {
-                result.push(matrix[0][i] / matrix[0].length)
-            }
-            if (result.length != 0) {
-                return result
-            }
-        }
-    }
-    function filter_stop_word(text) {
-        text = text.split(' ')
-        text = text.filter(function (value, index, arr) {
-            return file_stop_word.includes(process(value)) <= 0;
-        });
-        let new_text = ''
-        for (let i in text) {
-            if (text[i] != '' && text[i].length >= 2) {
-                new_text += text[i] + ' '
-            }
-        }
-        return new_text.trim()
-    }
-    function process(text) {
-        text = text.replace(/[’“”%&!’#√.*+?,;^${}()`'"|[\]\\//]/g, " ");
-        text = text.replace(/[0-9]/g, '');
-        text = text.replace(/(\r\n\t|\n|\r)/gm, " ");
-        text = text.replace(/[=]/g, " ");
-        text = text.replace(/[:]/g, " ");
-        text = text.replace(/[-]/g, " ");
-        text = text.replace(/[>]/g, " ");
-        text = text.replace(/[<]/g, " ");
-        text = text.replace(/[@]/g, " ");
-        text = text.replace(/\s+/g, ' ')
-        text = text.replace(/[0-9]/g, ' ');
-        text = text.replace("\\t ", "");
-        text = text.replace("\n", "");
-        text = text.replace("\n\t", "");
-        text = text.replace("    ", "");
-        text = text.toLocaleLowerCase();
-        text = text.trim();
-        text = text.trim();
-        return text
-    }
-    function document2vec(document) {
-        document = process(document).trim()
-        document = filter_stop_word(document)
-        document = document.split(' ')
-        let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
-        let array_dup = findDuplicates(document)
-        let array_sentence = []
-        for (let i in document) {
-            if (array_dup.indexOf(document[i]) == -1 && document[i].length > 3 && wordVecs[document[i]] != undefined) {
-                array_sentence.push(wordVecs[document[i]])
-            }
-        }
-        return average(array_sentence, array_sentence.length, 'mashup')
-    }
-    document = document.split('\n')
-    let return_document_vec = {}
-    for (let sentence in document) {
-        let sen_vec = document2vec(document[sentence])
-        if(sen_vec != undefined){
-            if (sen_vec.length > 0) {
-                return_document_vec[document[sentence]] = sen_vec
-            }
-        }
-        else{
-            console.log('\x1b[33m','Thông báo! Không thể chuyển câu này sang vector, rất có thể nó đã bị bộ lọc stopword và bộ lọc ký tự đặc biệt đã chặn nên các từ vựng trong câu này không xuất hiện ở bộ data vector ','\x1b[0m')
-        }
-    }
-    if (Object.keys(return_document_vec).length > 0) {
-        return_document_vec = JSON.stringify(return_document_vec)
-        if (url_save.length > 0) {
-            fs.writeFile(url_save, return_document_vec, function (err) {
-                if (err) { console.log(err) }
-                else {
-                    console.log('Saved vecs')
+        function average(matrix, size, type) {
+            if (type == "mashup") {
+                let matrix_mashup = mashup(matrix)
+                let result = []
+                for (let i in matrix_mashup) {
+                    result.push(matrix_mashup[i] / size)
                 }
-            })
-        } else {
-            return JSON.parse(return_document_vec)
+                if (result.length != 0) {
+                    return result
+                }
+            } else if (type == "nonmashup") {
+                let result = []
+                for (let i in matrix) {
+                    let line = []
+                    for (let j in matrix[i]) {
+                        line.push(matrix[i][j] / size)
+                    }
+                    if (line.length > 0 && line.length == matrix[i].length) {
+                        result.push(line)
+                    }
+                }
+                if (result.length != 0) {
+                    return result
+                }
+            }
+            else {
+                let result = []
+                for (let i in matrix[0]) {
+                    result.push(matrix[0][i] / matrix[0].length)
+                }
+                if (result.length != 0) {
+                    return result
+                }
+            }
         }
+        function filter_stop_word(text) {
+            text = text.split(' ')
+            text = text.filter(function (value, index, arr) {
+                return file_stop_word.includes(process(value)) <= 0;
+            });
+            let new_text = ''
+            for (let i in text) {
+                if (text[i] != '' && text[i].length >= 2) {
+                    new_text += text[i] + ' '
+                }
+            }
+            return new_text.trim()
+        }
+        function process(text) {
+            text = text.replace(/[’“”%&!’#√.*+?,;^${}()`'"|[\]\\//]/g, " ");
+            text = text.replace(/[0-9]/g, '');
+            text = text.replace(/(\r\n\t|\n|\r)/gm, " ");
+            text = text.replace(/[=]/g, " ");
+            text = text.replace(/[:]/g, " ");
+            text = text.replace(/[-]/g, " ");
+            text = text.replace(/[>]/g, " ");
+            text = text.replace(/[<]/g, " ");
+            text = text.replace(/[@]/g, " ");
+            text = text.replace(/\s+/g, ' ')
+            text = text.replace(/[0-9]/g, ' ');
+            text = text.replace("\\t ", "");
+            text = text.replace("\n", "");
+            text = text.replace("\n\t", "");
+            text = text.replace("    ", "");
+            text = text.toLocaleLowerCase();
+            text = text.trim();
+            text = text.trim();
+            return text
+        }
+        function document2vec(document) {
+            document = process(document).trim()
+            document = filter_stop_word(document)
+            document = document.split(' ')
+            let findDuplicates = arr => arr.filter((item, index) => arr.indexOf(item) != index)
+            let array_dup = findDuplicates(document)
+            let array_sentence = []
+            for (let i in document) {
+                if (array_dup.indexOf(document[i]) == -1 && document[i].length > 3 && wordVecs[document[i]] != undefined) {
+                    array_sentence.push(wordVecs[document[i]])
+                }
+            }
+            return average(array_sentence, array_sentence.length, 'mashup')
+        }
+        document = document.split('\n')
+        let return_document_vec = {}
+        for (let sentence in document) {
+            let sen_vec = document2vec(document[sentence])
+            if(sen_vec != undefined){
+                if (sen_vec.length > 0) {
+                    return_document_vec[document[sentence]] = sen_vec
+                }
+            }
+            else{
+                console.log('\x1b[33m','Thông báo! Không thể chuyển câu '+document[sentence]+' sang vector, rất có thể nó đã bị bộ lọc stopword và bộ lọc ký tự đặc biệt đã chặn nên các từ vựng trong câu này không xuất hiện ở bộ data vector ','\x1b[0m')
+            }
+        }
+        if (Object.keys(return_document_vec).length > 0) {
+            return_document_vec = JSON.stringify(return_document_vec)
+            if (url_save.length > 0) {
+                fs.writeFile(url_save, return_document_vec, function (err) {
+                    if (err) { console.log(err) }
+                    else {
+                        console.log('Saved vecs')
+                    }
+                })
+            } else {
+                return JSON.parse(return_document_vec)
+            }
+        }
+    }
+    catch(e){
+        console.log('\x1b[41m','Lỗi! Lỗi đường dẫn tệp, vui lòng định đường dẫn lại. Nếu bạn đang gọi hàm này tại một folder cùng cấp node_modules thì vui lòng thêm một dấu chấm trước ./ để xử dụng, xử lý tương tự với trường hợp bạn gọi trong folder lồng nhau khác!','\x1b[0m')
     }
 }
 module.exports.find_word = function (target, url_vecs_of_word, size_result) {
