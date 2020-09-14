@@ -29,6 +29,7 @@
 |clear_sentence_en|<"document">|"Chào mừng bạn đến với tôi"|Tại đây câu tiếng Anh của bạn sẽ được lọc từ stopword tiếng Anh cho đến các ký tự đặc biệt|
 |remove_duplicate_words|<"document">|"Chào chào mừng bạn đến với tôi"|Tại đây sẽ xóa các từ bị trùng lặp trong câu và nó dùng cho cả tiếng Anh và Việt|
 |fast_build_chatbot|<"text">|"Thời tiết hôm nay thế nào vậy"| Tại đây bot sẽ trả về một trong các nhãn: chemistry, general_asking, math, good_bye, hello, introduction, thanks, ask_weather, unknown|
+|sentiment|<"text">|"Hôm nay trời thật ảm đạm"|Tại đây sẽ trả về một trong các nhãn: buồn, vui, bực, bình thường, chưa xác định được"|
 # Cài đặt
 > 1. Install [Node.js](http://nodejs.org/)
 > 2. Run: npm i nk-vector
@@ -52,7 +53,7 @@ console.log(nearest);
   [ [ 5, 6 ], 8 ],
   [ [ 3, 4 ], 32 ],
   [ [ 1, 2 ], 72 ] ]
-Giải thích mảng trả về: [<vector trong tập dữ liệu>, <khoảng cách từ vector đầu vào tới vector này>]
+Giải thích kết quả mảng trả về: [<vector trong tập dữ liệu>, <khoảng cách từ vector đầu vào tới vector này>]
 */
 ```
 Ví dụ: Sử dụng hàm build_vec_sentences
@@ -68,7 +69,7 @@ if(full_sentence.length > 0){
     console.log(NKV.build_vec_sentences(full_sentence.trim(), 'E:/<name_project>/data_vec.json', ''))
 }
 /*Result: 
-{"cân_bằng phương_trình hóa học":[0.002338010428122218,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.00111962700489077,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.00111962700489077,0.0009866701202071657,0.00111962700489077,0,0.00111962700489077,0,0,0.0009866701202071657,0,0.0010865777210490053,0,0.0010865777210490053,0,0,0,0,0,0.0009866701202071657,0,0,0,0,0,0,0.0010865777210490053,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0010865777210490053,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+{"cân_bằng phương_trình hóa học":[0.002338010428122218,...,0,0,0.00111962700489077,0.0009866701202071657,0.00111962700489077,0,0.00111962700489077,0,0,0.0009866701202071657,0,0.0010865777210490053,0,0.0010865777210490053,0,0,0,0,0,0.0009866701202071657,0,0,0,0,0,0,0.0010865777210490053,...0,0.0010865777210490053,...,0]}
 */
 ```
 Ví dụ: Sử dụng hàm clear_sentence_vn
@@ -87,6 +88,7 @@ console.log(clear_sentence);
 > Nếu gặp lỗi không tìm thấy file stop word thì hãy tìm vào dòng lỗi theo đường dẫn trong terminal và sửa lại thành :</br>
 > 1. ./node_modules/nk-vector/src/stop_word.txt : Cho function clear_sentence_en
 > 2. ./node_modules/nk-vector/src/stop_word_vn.txt: Cho function clear_sentence_vn</br>
+> Hoặc một đường dẫn tệp chính xác theo cách của bạn
 >
 > Lỗi này được thông báo cho người dùng với mức màu đỏ
 ## Lỗi không build được vector cho câu

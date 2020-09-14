@@ -299,3 +299,7 @@ module.exports.fast_build_chatbot = function(text){
     let chat = require('./src/Simplechatbot')
     return chat.chatbot(text)
 }
+module.exports.sentiment = function (text){
+    let se = require("./src/Check_sentiment")
+    return se.sentiment(text)
+}
