@@ -1,13 +1,14 @@
+const path = require('path');
 module.exports.Create_one_hot = function (file_url, url_save) {
-    let cre_oh = require('./src/Create_onehot')
+    let cre_oh = require(path.join(__dirname, "/src/Create_onehot.js"))   
     cre_oh.one_hot(file_url, url_save)
 }
 module.exports.Create_window_words = function (file_url, window_size, url_save) {
-    let cre_w = require('./src/Create_windows')
+    let cre_w = require(path.join(__dirname, "/src/Create_windows.js"))
     cre_w.window(file_url, window_size, url_save)
 }
 module.exports.train = function (size_output, url_data_one_hot, url_data_window_words, url_save) {
-    let train = require('./src/Run_train')
+    let train = require(path.join(__dirname, "/src/Run_train.js"))    
     train.training(size_output, url_data_one_hot, url_data_window_words, url_save)
 }
 module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_save) {
@@ -15,7 +16,7 @@ module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_
     let data_vector = fs.readFileSync(url_vecs_of_words, 'utf8')
     let wordVecs = JSON.parse(data_vector);
     try{
-        let file_stop_word = fs.readFileSync(__dirname.replace(/[[\]\\//]/g,`/`).replace(/node_modules/g,"").replace(/nk-vector/g,"")+"/node_modules/nk-vector/src/stop_word.txt").toString();
+        let file_stop_word = fs.readFileSync(path.join(__dirname,"/src/stop_word.txt")).toString();
         file_stop_word = file_stop_word.split("\r\n")
         function mashup(matrix) {
             let result = matrix[0]
@@ -140,12 +141,12 @@ module.exports.build_vec_sentences = function (document, url_vecs_of_words, url_
         console.log('\x1b[41m','Lỗi! Lỗi đường dẫn tệp, vui lòng định đường dẫn lại!','\x1b[0m')
     }
 }
-module.exports.find_word = function (target, url_vecs_of_word, size_result) {
-    let search = require('./src/search_word_similarity')
+module.exports.search_word_similarity = function (target, url_vecs_of_word, size_result) {
+    let search = require(path.join(__dirname, "/src/search_word_similarity.js"))
     return search(target, url_vecs_of_word, size_result)
 }
 module.exports.knn = function (target, type_distance, data, k) {
-    let kdTree = require('./src/KD-tree')
+    let kdTree = require(path.join(__dirname, "/src/KD-tree.js"))
     let points = []
     for (let i in data) {
         let item = {}
@@ -234,7 +235,7 @@ module.exports.clear_sentence_vn = function(document){
     let tokenizer = vntk.wordTokenizer();
     document = process(document)
     let array_token =  tokenizer.tag(document);
-    let file_stop_word = fs.readFileSync(__dirname.replace(/[[\]\\//]/g,`/`).replace(/node_modules/g,"").replace(/nk-vector/g,"")+"/node_modules/nk-vector/src/stop_word_vn.txt").toString();
+    let file_stop_word = fs.readFileSync(path.join(__dirname,"/src/stop_word_vn.txt")).toString();
     file_stop_word = file_stop_word.split("\r\n")
     array_token = array_token.filter(function (value, index, arr) {
         return file_stop_word.includes(process(value)) <= 0;
@@ -266,7 +267,7 @@ module.exports.clear_sentence_en = function(document){
         text = text.trim()
         return text
     }
-    let file_stop_word = fs.readFileSync(__dirname.replace(/[[\]\\//]/g,`/`).replace(/node_modules/g,"").replace(/nk-vector/g,"")+"/node_modules/nk-vector/src/stop_word.txt").toString();
+    let file_stop_word = fs.readFileSync(path.join(__dirname,"/src/stop_word.txt")).toString();
     file_stop_word = file_stop_word.split("\r\n")
     document = process(document)
     function filter_stop_word(text) {
@@ -300,6 +301,6 @@ module.exports.fast_build_chatbot = function(text){
     return chat.chatbot(text)
 }
 module.exports.sentiment = function (text){
-    let se = require("./src/Check_sentiment")
+    let se = require(path.join(__dirname, "/src/Check_sentiment.js"))
     return se.sentiment(text)
 }

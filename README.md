@@ -22,7 +22,7 @@
 |Create_window_words|<file_url, window_size, url_save>|"E:/project/data.txt", 5, "E:/project/window.txt"|Trong này sẽ mặc định lọc stopword tiếng Anh và các ký tự đặc biệt trừ dấu '_'. window_size phải là số lẻ|
 |train|<size_output, url_data_one_hot, url_data_window_words, url_save>|512, "E:/project/onehot.json", "E:/project/window.txt", "E:/project/data_vector.json"|size_output là số chiều vector đầu ra và nó phải nhỏ hơn số chiều đầu onehot vector đầu vào|
 |build_vec_sentences|<"doc", url_vecs_of_words, url_save>|"Xin chào tất cả mọi người", "E:/project/data_vector.json", ""|Nếu url_save có độ dài bằng 0 thì mặc định trả về bộ vector mà không lưu, nếu lưu thì hãy để định dạng json - Vd: "E:/project/data_sentence_vector.json"|
-|find_word|<"target", url_vecs_of_word, size_result>|"king","E:/project/data_vector.json", 15| size_result tương ứng với số lượng từ có độ tương tự từ cao nhất đến thấp được trả về"|
+|search_word_similarity|<"target", url_vecs_of_word, size_result>|"king","E:/project/data_vector.json", 15| size_result tương ứng với số lượng từ có độ tương tự từ cao nhất đến thấp được trả về"|
 |knn|<"target", type_distance, data, k>|[ 7, 8 ], 'eculid', points, 4|Xem ví dụ sử dụng hàm knn bên dưới|
 |VN_segmentation_tag|<"document">|"Chào mừng bạn đến với tôi"|Hãy chắc chắn rằng version node của bạn là phiên bản bắt đầy từ 10.16.0 trở lên|
 |clear_sentence_vn|<"document">|"Chào mừng bạn đến với tôi"|Tại đây câu tiếng Việt của bạn sẽ được lọc từ stopword tiếng Việt cho đến các ký tự đặc biệt|
@@ -86,8 +86,8 @@ console.log(clear_sentence);
 # Một số lỗi bạn có thể gặp
 ## Lỗi không tìm thấy file stop word của cả bản Việt và Anh
 > Nếu gặp lỗi không tìm thấy file stop word thì hãy tìm vào dòng lỗi theo đường dẫn trong terminal và sửa lại thành :</br>
-> 1. ./node_modules/nk-vector/src/stop_word.txt : Cho function clear_sentence_en
-> 2. ./node_modules/nk-vector/src/stop_word_vn.txt: Cho function clear_sentence_vn</br>
+> 1. path.join(__dirname,"/src/stop_word.txt") : Cho function clear_sentence_en
+> 2. path.join(__dirname,"/src/stop_word_vn.txt"): Cho function clear_sentence_vn</br>
 > Hoặc một đường dẫn tệp chính xác theo cách của bạn
 >
 > Lỗi này được thông báo cho người dùng với mức màu đỏ
