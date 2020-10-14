@@ -18,18 +18,19 @@
 # Hàm và các tham số
 |Hàm|Tham số|Ví dụ|Lưu ý|
 |---|-------|-----|-----|
-|Create_one_hot|<file_url, url_save>|"E:/project/data.txt", "E:/project/onehot.json"|Trong này sẽ mặc định lọc stopword tiếng Anh và các ký tự đặc biệt trừ dấu '_'|
-|Create_window_words|<file_url, window_size, url_save>|"E:/project/data.txt", 5, "E:/project/window.txt"|Trong này sẽ mặc định lọc stopword tiếng Anh và các ký tự đặc biệt trừ dấu '_'. window_size phải là số lẻ|
+|create_one_hot|<file_url, url_save>|"E:/project/data.txt", "E:/project/onehot.json"|Trong này sẽ mặc định lọc stopword tiếng Anh và các ký tự đặc biệt trừ dấu '_'|
+|create_window_words|<file_url, window_size, url_save>|"E:/project/data.txt", 5, "E:/project/window.txt"|Trong này sẽ mặc định lọc stopword tiếng Anh và các ký tự đặc biệt trừ dấu '_'. window_size phải là số lẻ|
 |train|<size_output, url_data_one_hot, url_data_window_words, url_save>|512, "E:/project/onehot.json", "E:/project/window.txt", "E:/project/data_vector.json"|size_output là số chiều vector đầu ra và nó phải nhỏ hơn số chiều đầu onehot vector đầu vào|
 |build_vec_sentences|<"doc", url_vecs_of_words, url_save>|"Xin chào tất cả mọi người", "E:/project/data_vector.json", ""|Nếu url_save có độ dài bằng 0 thì mặc định trả về bộ vector mà không lưu, nếu lưu thì hãy để định dạng json - Vd: "E:/project/data_sentence_vector.json"|
 |search_word_similarity|<"target", url_vecs_of_word, size_result>|"king","E:/project/data_vector.json", 15| size_result tương ứng với số lượng từ có độ tương tự từ cao nhất đến thấp được trả về"|
 |knn|<"target", type_distance, data, k>|[ 7, 8 ], 'eculid', points, 4|Xem ví dụ sử dụng hàm knn bên dưới|
 |VN_segmentation_tag|<"document">|"Chào mừng bạn đến với tôi"|Hãy chắc chắn rằng version node của bạn là phiên bản bắt đầy từ 10.16.0 trở lên|
-|clear_sentence_vn|<"document">|"Chào mừng bạn đến với tôi"|Tại đây câu tiếng Việt của bạn sẽ được lọc từ stopword tiếng Việt cho đến các ký tự đặc biệt|
+|clear_sentence_VN|<"document">|"Chào mừng bạn đến với tôi"|Tại đây câu tiếng Việt của bạn sẽ được lọc từ stopword tiếng Việt cho đến các ký tự đặc biệt|
 |clear_sentence_en|<"document">|"Chào mừng bạn đến với tôi"|Tại đây câu tiếng Anh của bạn sẽ được lọc từ stopword tiếng Anh cho đến các ký tự đặc biệt|
 |remove_duplicate_words|<"document">|"Chào chào mừng bạn đến với tôi"|Tại đây sẽ xóa các từ bị trùng lặp trong câu và nó dùng cho cả tiếng Anh và Việt|
 |fast_build_chatbot|<"text">|"Thời tiết hôm nay thế nào vậy"| Tại đây bot sẽ trả về một trong các nhãn: chemistry, general_asking, math, good_bye, hello, introduction, thanks, ask_weather, unknown|
-|sentiment|<"text">|"Hôm nay trời thật ảm đạm"|Tại đây sẽ trả về một trong các nhãn: buồn, vui, bực, bình thường, chưa xác định được"|
+|sentiment_VN|<"text">|"Hôm nay trời thật ảm đạm"|Tại đây sẽ trả về một trong các nhãn: buồn, vui, bực, bình thường, chưa xác định được"|
+|fix_telex|<"text">|"Anh thisch awn busn char cas"|Tại đây sẽ trả về kết quả là chuỗi đã được telex - như ví dụ là: Anh thích ăn bún chả cá|
 # Cài đặt
 > 1. Install [Node.js](http://nodejs.org/)
 > 2. Run: npm i nk-vector

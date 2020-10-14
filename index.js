@@ -1,9 +1,9 @@
 const path = require('path');
-module.exports.Create_one_hot = function (file_url, url_save) {
+module.exports.create_one_hot = function (file_url, url_save) {
     let cre_oh = require(path.join(__dirname, "/src/Create_onehot.js"))   
     cre_oh.one_hot(file_url, url_save)
 }
-module.exports.Create_window_words = function (file_url, window_size, url_save) {
+module.exports.create_window_words = function (file_url, window_size, url_save) {
     let cre_w = require(path.join(__dirname, "/src/Create_windows.js"))
     cre_w.window(file_url, window_size, url_save)
 }
@@ -212,7 +212,7 @@ module.exports.VN_segmentation_tag = function (document) {
     let tokenizer = vntk.wordTokenizer();
     return tokenizer.tag(document);
 }
-module.exports.clear_sentence_vn = function(document){
+module.exports.clear_sentence_VN = function(document){
     function process(text) {
         text = text.replace(/[’“”%&!’#√.*+?,;^${}()_`'"|[\]\\//]/g, " ");
         text = text.replace(/[0-9]/g, '');
@@ -300,7 +300,11 @@ module.exports.fast_build_chatbot = function(text){
     let chat = require('./src/Simplechatbot')
     return chat.chatbot(text)
 }
-module.exports.sentiment = function (text){
+module.exports.sentiment_VN = function (text){
     let se = require(path.join(__dirname, "/src/Check_sentiment.js"))
     return se.sentiment(text)
+}
+module.exports.fix_telex = function(error_text){
+    let check_telex = require(path.join(__dirname, "/src/Check_telex.js"))
+    return check_telex.check_error_telex(error_text)
 }
