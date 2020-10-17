@@ -31,6 +31,8 @@
 |fast_build_chatbot|<"text">|"Thời tiết hôm nay thế nào vậy"| Tại đây bot sẽ trả về một trong các nhãn: chemistry, general_asking, math, good_bye, hello, introduction, thanks, ask_weather, unknown|
 |sentiment_VN|<"text">|"Hôm nay trời thật ảm đạm"|Tại đây sẽ trả về một trong các nhãn: buồn, vui, bực, bình thường, chưa xác định được"|
 |fix_telex|<"text">|"Anh thisch awn busn char cas"|Tại đây sẽ trả về kết quả là chuỗi đã được telex - như ví dụ là: Anh thích ăn bún chả cá|
+|English_or_Vietnamese|<"text">|"hello, hơ ảe you?"|Tại đây sẽ trả về kết quả là một Object gồm các trường your_text, label, fix_text - như ví dụ là { your_text: 'hello, hơ ảe you?', label: 'English',fix_text: 'hello, how are you?'
+}|
 # Cài đặt
 > 1. Install [Node.js](http://nodejs.org/)
 > 2. Run: npm i nk-vector

@@ -300,11 +300,15 @@ module.exports.fast_build_chatbot = function(text){
     let chat = require('./src/Simplechatbot')
     return chat.chatbot(text)
 }
-module.exports.sentiment_VN = function (text){
+module.exports.sentiment_VN = function(text){
     let se = require(path.join(__dirname, "/src/Check_sentiment.js"))
     return se.sentiment(text)
 }
 module.exports.fix_telex = function(error_text){
     let check_telex = require(path.join(__dirname, "/src/Check_telex.js"))
     return check_telex.check_error_telex(error_text)
+}
+module.exports.English_or_Vietnamese = function(text){
+    let check = require(path.join(__dirname, "/src/Check_language.js"))
+    return check.check_language(text)
 }
