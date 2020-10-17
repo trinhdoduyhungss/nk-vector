@@ -29,7 +29,7 @@
 |clear_sentence_en|<"document">|"Chào mừng bạn đến với tôi"|Tại đây câu tiếng Anh của bạn sẽ được lọc từ stopword tiếng Anh cho đến các ký tự đặc biệt|
 |remove_duplicate_words|<"document">|"Chào chào mừng bạn đến với tôi"|Tại đây sẽ xóa các từ bị trùng lặp trong câu và nó dùng cho cả tiếng Anh và Việt|
 |fast_build_chatbot|<"text">|"Thời tiết hôm nay thế nào vậy"| Tại đây bot sẽ trả về một trong các nhãn: chemistry, general_asking, math, good_bye, hello, introduction, thanks, ask_weather, unknown|
-|sentiment_VN|<"text">|"Hôm nay trời thật ảm đạm"|Tại đây sẽ trả về một trong các nhãn: buồn, vui, bực, bình thường, chưa xác định được"|
+|sentiment_VN|<"text">|"Hôm nay trời thật ảm đạm"|Tại đây sẽ trả về một trong các nhãn: buồn, vui, bực, bình thường, chưa xác định được - như ví dụ thì kết quả trả về là một string: buồn"|
 |fix_telex|<"text">|"Anh thisch awn busn char cas"|Tại đây sẽ trả về kết quả là chuỗi đã được telex - như ví dụ là: Anh thích ăn bún chả cá|
 |English_or_Vietnamese|<"text">|"hello, hơ ảe you?"|Tại đây sẽ trả về kết quả là một Object gồm các trường your_text, label, fix_text - như ví dụ là { your_text: 'hello, hơ ảe you?', label: 'English',fix_text: 'hello, how are you?'
 }|
