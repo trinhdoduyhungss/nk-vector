@@ -1,5 +1,6 @@
 module.exports.window = function (file_url, window_size, url_save) {
     let fs = require("fs");
+    const path = require('path');
     let file_NL = fs.readFileSync(file_url).toString();
     file_NL = file_NL.split("\r\n")
     let file_stop_word = fs.readFileSync(path.join(__dirname, "/stop_word.txt"), 'utf8').toString();

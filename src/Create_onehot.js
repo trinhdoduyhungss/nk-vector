@@ -1,7 +1,9 @@
 module.exports.one_hot = function (file_url, url_save){
     let fs = require('fs');
+    const path = require('path');
     let file_NL = fs.readFileSync(file_url).toString();
-    file_NL = file_NL.split("\r\n")    
+    file_NL = file_NL.split("\r\n")
+    file_NL = [...new Set(file_NL)]
     let file_stop_word = fs.readFileSync(path.join(__dirname, "/stop_word.txt"), 'utf8').toString();
     file_stop_word = file_stop_word.split("\r\n")
     function filter_stop_word(text) {
@@ -62,7 +64,11 @@ module.exports.one_hot = function (file_url, url_save){
                         data_vec_save[array_data[word]] = [...Array(array_data.length)].map(e => 0)
                         data_vec_save[array_data[word]].splice(word, 1, 1)
                     } else {
-                        data_vec_save[array_data[word]].splice(word, 1, 1)
+                        try{
+                            data_vec_save[array_data[word]].splice(word, 1, 1)
+                        }catch(e){
+                            continue
+                        }
                     }
                 }
             }
