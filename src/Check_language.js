@@ -266,10 +266,8 @@ module.exports.check_language = function(text){
         return new_text.trim()
     }
     function check_language(text, num_char_telex){
-        text = filter_stop_word(text)
-        let text_length = text.split(" ").length
+        let text_length = filter_stop_word(text).split(" ").length
         let analytics = 1/(1+Math.exp((text_length-(text_length-num_char_telex))/text_length))
-        console.log(text, analytics)
         if(analytics > 0.2 && analytics <= 1){
             return {'your_text':text,'label':'English', 'fix_text': chage_telex(text)}
         }
