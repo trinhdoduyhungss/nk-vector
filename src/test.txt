@@ -1,0 +1,2 @@
+Print triangle in terminal
+Show triangle left in console

@@ -1,5 +1,10 @@
 module.exports.check_language = function(text){
-    let NKV = require('../index.js')
+    let fs = require('fs');
+    const path = require('path');
+    let file_stop_word_en = fs.readFileSync(path.join(__dirname, "/stop_word.txt"), 'utf8').toString();
+    file_stop_word_en = file_stop_word_en.split("\r\n")
+    let file_stop_word_vn = fs.readFileSync(path.join(__dirname, "/stop_word_vn.txt"), 'utf8').toString();
+    file_stop_word_vn = file_stop_word_vn.split("\r\n")
     function check_telex(text){
         let num_char_telex = 0
         text.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ|è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ|ì|í|ị|ỉ|ĩ|ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ|ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ|ỳ|ý|ỵ|ỷ|ỹ|đ/g, function(char){
@@ -8,6 +13,24 @@ module.exports.check_language = function(text){
             }
         })
         return num_char_telex
+    }
+    function process(text) {
+        text = text.replace(/[’“”%&!’#√.*+?,;^${}()`'"|[\]\\//]/g, " ");
+        text = text.replace(/[0-9]/g, '');
+        text = text.replace(/(\r\n\t|\n|\r)/gm, " ");
+        text = text.replace(/[=]/g, " ");
+        text = text.replace(/[:]/g, " ");
+        text = text.replace(/[-]/g, " ");
+        text = text.replace(/[>]/g, " ");
+        text = text.replace(/[<]/g, " ");
+        text = text.replace(/[@]/g, " ");
+        text = text.replace(",", "");
+        text = text.replace(/\s+/g, ' ')
+        text = text.replace(/[0-9]/g, ' ');
+        text = text.toLocaleLowerCase()
+        text = text.trim()
+        text = text.trim()
+        return text
     }
     function chage_telex(text) {
         let str = text;
@@ -226,16 +249,31 @@ module.exports.check_language = function(text){
         str = str.trim();
         return str;
     }
+    function filter_stop_word(text) {
+        text = text.split(' ')
+        text = text.filter(function (value, index, arr) {
+            return file_stop_word_en.includes(process(value)) <= 0;
+        });
+        text = text.filter(function (value, index, arr) {
+            return file_stop_word_vn.includes(process(value)) <= 0;
+        });
+        let new_text = ''
+        for (let i in text) {
+            if (text[i] != '' && text[i].length >= 2) {
+                new_text += text[i] + ' '
+            }
+        }
+        return new_text.trim()
+    }
     function check_language(text, num_char_telex){
-        let text_length = text.length
-        let analytics = (text_length-num_char_telex)/text_length
-        if(analytics > 0.5 && analytics < 1){
+        text = filter_stop_word(text)
+        let text_length = text.split(" ").length
+        let analytics = 1/(1+Math.exp((text_length-(text_length-num_char_telex))/text_length))
+        console.log(text, analytics)
+        if(analytics > 0.2 && analytics <= 1){
             return {'your_text':text,'label':'English', 'fix_text': chage_telex(text)}
         }
-        else if (analytics = 1){
-            return {'your_text':text,'label':'English'}
-        }
-        else if (analytics < 0.5){
+        else if (analytics <= 0.2){
             return {'your_text':text,'label':'Vietnamese'}
         }
     }

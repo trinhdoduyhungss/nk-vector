@@ -40,11 +40,11 @@ module.exports.one_hot = function (file_url, url_save){
         let data_clean = ''
         for (let i in data) {
             let sentence = data[i]
-                data_clean += filter_stop_word(sentence)
+                data_clean += filter_stop_word(sentence) + ' '
         }
         if (data_clean != '') {
             data_clean = process(data_clean).trim()
-            return data_clean
+            return data_clean.trim()
         }
     }
     function run(file_NL) {
@@ -61,13 +61,13 @@ module.exports.one_hot = function (file_url, url_save){
             for (let word in array_data) {
                 if (array_data[word] != '' && array_data[word].length >= 2) {
                     if (data_vec_save[array_data[word]] == undefined) {
-                        data_vec_save[array_data[word]] = [...Array(array_data.length)].map(e => 0)
-                        data_vec_save[array_data[word]].splice(word, 1, 1)
+                        data_vec_save[array_data[word]] = [...Array(array_data.length)].map((e,i) => {
+                            if(i== word){return 1}else{return 0}})
                     } else {
                         try{
                             data_vec_save[array_data[word]].splice(word, 1, 1)
                         }catch(e){
-                            continue
+                            data_vec_save[array_data[word]] = data_vec_save[array_data[word]]
                         }
                     }
                 }
